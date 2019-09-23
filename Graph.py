@@ -10,19 +10,19 @@ class Graph():
     def Breadth_first_search(self):  # busca em largura
         openedStates = list()
         closedStates = list()
-        level = 0
 
         openedStates.append(self.root)
 
         while(len(openedStates) > 0):
 
+            if(openedStates[0].is_final()):
+                return True
+
             children = self.problem.move_rigth_sub(openedStates[0])
             openedStates.extend(children)
-            level +=1
             closedStates.append(openedStates.pop(0))
+            
+        return False
 
-            for s in openedStates:
-                if(s.is_final):
-                    return True
-
+         
         
