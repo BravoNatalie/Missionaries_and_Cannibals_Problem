@@ -7,9 +7,17 @@ class State():
         self.m = missionaries
         self.c = cannibals
         self.b = boat
+        self.depth = 0
+        self.path = [] 
+        self.id = 0
+        
+    def __str__(self):
+        return ("%s -> Depth: %d" % (self.value, self.depth))
+    def __eq__(self, obj):
+        return isinstance(obj, State) and self.value == obj.value
         
     def is_final(self):
-        return self.value == c.FINAL_STATE
+        return self.value == c.FINAL_STATE.value
     
     def is_valid(self, initial_state):
         if(self.c > self.m and self.m != 0): # mais canibais que missionários no lado de origem

@@ -11,7 +11,7 @@ class MC_Problem:
         self.initial_state = State(self.M, self.C, c.B)
         self.final_state = c.FINAL_STATE
         self.all_actions = self.__get_all_actions()
-        
+        self.count = 1 
 
     def __get_all_actions(self):
 
@@ -41,19 +41,17 @@ class MC_Problem:
 
     # os métodos de operação abaixo utilizam soma e subtração para gerar os possíveis estados alcançáveis a partir de um estada dado 
 
-    def move_rigth_sub(self, state): # se o level do grafo for ímpar (começando com raiz em level 0)
+    def move(self, state):
         possibles_states = list()
         for s in self.all_actions:
-            result = State(*tuple(np.subtract(state.value, s)))
-            if(result.is_valid(self.initial_state)):
-                possibles_states.append(result)
-        return possibles_states
-    
-
-    def move_left_add(self, state): # se o level do grafo for par (começando com raiz em level 0)
-        possibles_states = list()
-        for s in self.all_actions:
-            result = State(*tuple(np.add(state.value, s)))
+            if state.depth % 2 == 0: 
+                result = State(*tuple(np.subtract(state.value, s)))
+            else:
+                result = State(*tuple(np.add(state.value, s)))
+            result.depth = state.depth + 1
+            result.path = [state] + state.path
+            result.id = self.count
+            self.count += 1
             if(result.is_valid(self.initial_state)):
                 possibles_states.append(result)
         return possibles_states

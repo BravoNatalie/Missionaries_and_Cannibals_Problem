@@ -9,12 +9,16 @@ def main():
     c = 3
     b = 2
     n_max = 10000 # nº máximo de execuções
-            
+
     problem = mc.MC_Problem(m, c, b, n_max)
 
     g = Graph(problem)
 
-    g.Breadth_first_search()
+    state, tree = g.Breadth_first_search(prune=True)
+
+    print(state.path)
+    tree.layout(prog='dot')
+    tree.draw('file.png')
 
 if __name__ == '__main__':
 	main()
