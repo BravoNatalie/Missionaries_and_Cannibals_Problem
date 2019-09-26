@@ -41,7 +41,8 @@ class Graph():
 
         return None, tree
 
-    def breadth_first_search(self, prune=False):  # busca em largura
+    # busca em largura
+    def breadth_first_search(self, prune=False): 
         opened_states = list()
         closed_states = list()
 

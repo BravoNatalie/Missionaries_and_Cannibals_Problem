@@ -17,13 +17,13 @@ def main():
 
     state, tree = g.backtracking_search()
     tree.layout(prog='dot')
-    tree.draw('file_backtrack.png')
+    tree.draw('images/graph_backtrack.png')
 
     g = Graph(problem)
 
     state, tree = g.breadth_first_search()
     tree.layout(prog='dot')
-    tree.draw('file_breadth.png')
+    tree.draw('images/graph_breadth.png')
 
 
 if __name__ == '__main__':
