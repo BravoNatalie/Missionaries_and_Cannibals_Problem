@@ -1,5 +1,5 @@
 import sys
-import MC_Problem as mc
+import MC_Problem as MC
 from Graph import Graph
 from State import State
 
@@ -11,7 +11,7 @@ def main():
     b = 2
     n_max = 10000  # nº máximo de execuções
 
-    problem = mc.MC_Problem(m, c, b, n_max)
+    problem = MC.MC_Problem(m, c, b, n_max)
 
     g = Graph(problem)
 
