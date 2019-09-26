@@ -9,6 +9,38 @@ class Graph():
         self.problem = problem
         self.root = problem.initial_state
 
+    def backtracking_search(self):
+        closed_states = list()
+
+        tree = PG.AGraph(directed=True, strict=True)
+
+        states = [self.root]
+
+        while len(states) > 0:
+
+            current_state = states.pop()
+
+            if current_state in closed_states or current_state in current_state.path:
+                continue
+
+            tree.add_node(current_state.id, label=str(current_state.value))
+
+            if len(current_state.path) > 0:
+                tree.add_edge(current_state.path[0].id, current_state.id)
+
+            if current_state.is_final():
+                return current_state, tree
+
+            children = self.problem.move(current_state)
+
+            if len(children) == 0:
+                print("Fail on " + current_state)
+
+            states += children
+            closed_states.append(current_state)
+
+        return None, tree
+
     def breadth_first_search(self, prune=False):  # busca em largura
         opened_states = list()
         closed_states = list()

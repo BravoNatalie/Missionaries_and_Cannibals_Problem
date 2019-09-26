@@ -52,6 +52,6 @@ class MC_Problem:
             result.path = [state] + state.path
             result.id = self.count
             self.count += 1
-            if(result.is_valid(self.initial_state)):
+            if result.is_valid(self.initial_state):
                 possibles_states.append(result)
         return possibles_states
