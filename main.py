@@ -25,6 +25,15 @@ def main():
     tree.layout(prog='dot')
     tree.draw('images/graph_breadth.png')
 
+    state, tree = g.ordered_search()
+    tree.layout(prog='dot')
+    tree.draw('images/graph_ordered_search.png')
+
+    state, tree = g.heuristic_search()
+    tree.layout(prog='dot')
+    tree.draw('images/graph_heuristic_search.png')
+
+
 
 if __name__ == '__main__':
     main()

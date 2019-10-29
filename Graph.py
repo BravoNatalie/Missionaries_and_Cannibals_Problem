@@ -1,6 +1,7 @@
 from MC_Problem import MC_Problem
 from State import State
 import pygraphviz as PG
+from operator import itemgetter
 
 
 class Graph():
@@ -9,7 +10,15 @@ class Graph():
         self.problem = problem
         self.root = problem.initial_state
 
-    def backtracking_search(self):
+    # Calcula o custo para a busca ordenada
+    def calculate_cost_ordered_search(self, state):
+        state.cost += 1
+
+    def calculate_heuristic_cost_search(self, state):
+        state.cost = state.m
+
+    # Executa a busca usando a abordagens diversas de calculos de custo
+    def perform_search(self, calculate_cost_function=None):
         closed_states = list()
 
         tree = PG.AGraph(directed=True, strict=True)
@@ -31,18 +40,18 @@ class Graph():
             if current_state.is_final():
                 return current_state, tree
 
-            children = self.problem.move(current_state)
-
-            if len(children) == 0:
-                print("Fail on " + current_state)
+            children = self.problem.move(current_state, calculate_cost_function)
 
             states += children
             closed_states.append(current_state)
 
+            if calculate_cost_function:
+                states.sort()
+
         return None, tree
 
     # busca em largura
-    def breadth_first_search(self, prune=False): 
+    def breadth_first_search(self, prune=False):
         opened_states = list()
         closed_states = list()
 
@@ -76,3 +85,15 @@ class Graph():
             closed_states.append(opened_states.pop(0))
 
         return None, tree
+
+    # Busca backtracking
+    def backtracking_search(self):
+        return self.perform_search()
+
+    # Busca ordenada
+    def ordered_search(self):
+        return self.perform_search(self.calculate_cost_ordered_search)
+
+    # Busca Heuristica
+    def heuristic_search(self):
+        return self.perform_search(self.calculate_heuristic_cost_search)
