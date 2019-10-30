@@ -11,11 +11,14 @@ class Graph():
         self.root = problem.initial_state
 
     # Calcula o custo para a busca ordenada
-    def calculate_cost_ordered_search(self, state):
+    def calculate_cost_ordered_search(self, state, parent_state):
         state.cost += 1
 
-    def calculate_heuristic_cost_search(self, state):
+    def calculate_heuristic_cost_search(self, state, parent_state):
         state.cost = state.m
+
+    def calculate_a_star_cost(self, state, parent_state):
+        state.cost = (parent_state.cost - parent_state.m) + state.m + 1
 
     # Executa a busca usando a abordagens diversas de calculos de custo
     def perform_search(self, calculate_cost_function=None):
@@ -97,3 +100,7 @@ class Graph():
     # Busca Heuristica
     def heuristic_search(self):
         return self.perform_search(self.calculate_heuristic_cost_search)
+
+    # Busca A*
+    def a_star_search(self):
+        return self.perform_search(self.calculate_a_star_cost)

@@ -54,6 +54,6 @@ class MC_Problem:
             self.count += 1
             if result.is_valid(self.initial_state):
                 if calculate_cost:
-                    calculate_cost(result)
+                    calculate_cost(result, state)
                 possibles_states.append(result)
         return possibles_states

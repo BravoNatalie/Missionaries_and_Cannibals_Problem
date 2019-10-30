@@ -33,6 +33,12 @@ def main():
     tree.layout(prog='dot')
     tree.draw('images/graph_heuristic_search.png')
 
+    state, tree = g.a_star_search()
+    tree.layout(prog='dot')
+    tree.draw('images/graph_a_star_search.png')
+
+
+
 
 
 if __name__ == '__main__':
